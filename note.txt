@@ -1,0 +1,13 @@
+Grafana Tempo will listen to any telemetry data through its address (Port 4317 & 4318)
+This are configured through distributor section which specify where to listen telemetry data coming from
+
+Telemetry data are collections of spans that are combined as trace
+Collections of traces then combined to become block
+After that block of telemetry data has been created, ingester will retain this file to WAL
+flush_check_period will handle when to write these blocks from WAL to backend data storage
+These phase are configured on ingester section
+
+A series of blocks are stored on backend storage.
+Compactor will list recent blocks to create compacted block that contain collections of blocks
+Then finaly write the compacted block to backend storage
+These phase are configured on compactor section
