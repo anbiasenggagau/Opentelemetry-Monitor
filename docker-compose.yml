@@ -4,9 +4,6 @@ networks:
     name: telemetry-monitoring
 
 services:
-
-  # Tempo runs as user 10001, and docker compose creates the volume as root.
-  # As such, we need to chown the volume in order for Tempo to start correctly.
   tempo:
     container_name: tempo
     image: grafana/tempo:main-567e7f7
@@ -19,20 +16,9 @@ services:
       - ./tempo-data:/var/tempo
       - ./tmp-tempo-data:/tmp/tempo
     ports:
-      - 3200:3200 # tempo
-
-  # And put them in an OTEL collector pipeline...
-  otel-collector:
-    container_name: otel-collector
-    image: otel/opentelemetry-collector:0.105.0
-    networks:
-      - telemetry-monitoring
-    command: [ "--config=/etc/otel-collector.yaml" ]
-    ports:
+      - 3200:3200
       - 4317:4317
       - 4318:4318
-    volumes:
-      - ./otel-collector.yaml:/etc/otel-collector.yaml
 
   grafana:
     container_name: grafana

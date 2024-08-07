@@ -4,7 +4,9 @@ import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto'
 
 const sdk = new opentelemetry.NodeSDK({
     serviceName: "Testing Opentelemetry SDK Using Grafana Tempo",
-    traceExporter: new OTLPTraceExporter(),
+    traceExporter: new OTLPTraceExporter({
+        url: 'http://localhost:4318/v1/traces'
+    }),
     instrumentations: [getNodeAutoInstrumentations()],
 })
 
