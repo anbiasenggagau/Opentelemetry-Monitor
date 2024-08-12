@@ -37,6 +37,14 @@ compactor:
 # Configuration block to determine where to store TSDB blocks.
 storage:
   trace:
+    # backend: s3
+    # s3:
+    #   bucket: tempo-tracing-data
+    #   endpoint: minio:9000
+    #   list_blocks_concurrency: 3
+    #   access_key: ACCESS_KEY
+    #   secret_key: SECRET_KEY
+    #   insecure: true
     backend: local # Use the local filesystem for block storage. Not recommended for production systems.
     block:
       bloom_filter_false_positive: .05 # Bloom filter false positive rate.  lower values create larger filters but fewer false positives.

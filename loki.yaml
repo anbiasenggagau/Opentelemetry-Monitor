@@ -14,6 +14,9 @@ common:
     filesystem:
       chunks_directory: /tmp/loki/chunks
       rules_directory: /tmp/loki/rules
+    # s3:
+    #   s3: s3://ACCESS_KEY:SECRET_KEY@minio:9000/loki
+    #   s3forcepathstyle: true
   replication_factor: 1
   ring:
     kvstore:
@@ -26,21 +29,27 @@ query_range:
         enabled: true
         max_size_mb: 100
 
+# storage_config:
+#   aws:
+#     s3: s3://ACCESS_KEY:SECRET_KEY@minio:9000/loki
+#     s3forcepathstyle: true
+
+#   tsdb_shipper:
+#     active_index_directory: /loki/index
+#     cache_location: /loki/index_cache
+#     cache_ttl: 24h
+#     resync_interval: 5s
+
 schema_config:
   configs:
     - from: 2020-10-24
       store: tsdb
+      # object_store: aws
       object_store: filesystem
       schema: v13
       index:
         prefix: index_
         period: 24h
-
-ruler:
-  alertmanager_url: http://localhost:9093
-# By default, Loki will send anonymous, but uniquely-identifiable usage and configuration
-# analytics to Grafana Labs. These statistics are sent to https://stats.grafana.org/
-#
 # Statistics help us better understand how Loki is used, and they show us performance
 # levels for most users. This helps us prioritize features and documentation.
 # For more information on what's sent, look at
