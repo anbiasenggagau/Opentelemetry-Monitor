@@ -27,11 +27,19 @@ services:
       - telemetry-monitoring
     volumes:
       - ./grafana-datasources.yaml:/etc/grafana/provisioning/datasources/datasources.yaml
+      - ./grafana.ini:/etc/grafana/grafana.ini
     environment:
       - GF_AUTH_ANONYMOUS_ENABLED=true
       - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
       - GF_AUTH_DISABLE_LOGIN_FORM=true
       - GF_FEATURE_TOGGLES_ENABLE=traceqlEditor
+      # - GF_SMTP_ENABLED=true
+      # - GF_SMTP_HOST=smtp.gmail.com:587
+      # - GF_SMTP_USER=anbiasenggagau@gmail.com
+      # - GF_SMTP_PASSWORD=supersecret
+      # - GF_SMTP_SKIP_VERIFY=false
+      # - GF_SMTP_FROM_NAME=NO-REPLY
+      # - GF_SMTP_FROM_ADDRESS=anbiasenggagau@gmail.com
     ports:
       - 3000:3000
 
